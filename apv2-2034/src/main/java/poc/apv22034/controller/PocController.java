@@ -4,16 +4,16 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ServerWebExchange;
-import poc.apv22034.service.ProductService;
+import poc.apv22034.service.PocService;
 import reactor.core.publisher.Mono;
 
 @RequiredArgsConstructor
 @RestController
 @Slf4j
 @RequestMapping("/poc")
-public class ProductController {
+public class PocController {
 
-    private final ProductService service;
+    private final PocService service;
 
     @GetMapping("/")
     public Mono<String> callWebClient(ServerWebExchange exchange) {

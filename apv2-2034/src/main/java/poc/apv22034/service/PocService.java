@@ -4,18 +4,16 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
-import poc.apv22034.dao.ProductDao;
 import reactor.core.publisher.Mono;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class ProductService {
-    ProductDao dao;
+public class PocService {
     private final WebClient webClient;
 
     public Mono<String> callWebClient() {
-        log.info("4 Calling WebClient with the JWT token");
+        log.info("4 Using WebClient to call validateJwtIsPresent");
         webClient.get()
                 .uri("http://localhost:8080/poc/validateJwtIsPresent")
                 .retrieve()

@@ -16,7 +16,7 @@ public class JwtExtractorAspect {
 
     private final JwtStorage jwtStorage;
 
-    @Before("execution(* poc.apv22034.controller.ProductController.callWebClient(..)) && args(exchange,..)")
+    @Before("execution(* poc.apv22034.controller.PocController.callWebClient(..)) && args(exchange,..)")
     public void beforeControllerMethod(JoinPoint joinPoint, ServerWebExchange exchange) {
         log.info("1 Aspect called to extract JWT token from request header");
         String token = exchange.getRequest().getHeaders().getFirst("Authorization");
