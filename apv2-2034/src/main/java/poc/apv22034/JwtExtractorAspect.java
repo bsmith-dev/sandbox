@@ -1,4 +1,4 @@
-package poc.apv22034.aspect;
+package poc.apv22034;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,12 +16,11 @@ public class JwtExtractorAspect {
 
     private final JwtStorage jwtStorage;
 
-    @Before("execution(* poc.apv22034.controller.PocController.callWebClient(..)) && args(exchange,..)")
+    @Before("execution(* poc.apv22034.Controller.callWebClient(..)) && args(exchange,..)")
     public void beforeControllerMethod(JoinPoint joinPoint, ServerWebExchange exchange) {
-        log.info("1 Aspect called to extract JWT token from request header");
         String token = exchange.getRequest().getHeaders().getFirst("Authorization");
         jwtStorage.setJwtToken(token);
-        log.info("2 Token stored {}", token);
+        log.info("1 Token extracted from header and stored {}", token);
 
     }
 

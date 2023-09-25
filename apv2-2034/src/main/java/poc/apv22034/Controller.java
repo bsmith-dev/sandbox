@@ -1,29 +1,28 @@
-package poc.apv22034.controller;
+package poc.apv22034;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ServerWebExchange;
-import poc.apv22034.service.PocService;
 import reactor.core.publisher.Mono;
 
 @RequiredArgsConstructor
 @RestController
 @Slf4j
 @RequestMapping("/poc")
-public class PocController {
+public class Controller {
 
-    private final PocService service;
+    private final Service service;
 
     @GetMapping("/")
     public Mono<String> callWebClient(ServerWebExchange exchange) {
-        log.info("3 Received request from Postman and calling web client service");
-        return service.callWebClient();
+        log.info("2 /poc endpoint called");
+        return service.webClientExecutor();
     }
 
-    @GetMapping(value = "/validateJwtIsPresent")
+    @GetMapping(value = "/mockApi")
     public Mono<String>  validateJwtIsPresent(@RequestHeader("Authorization") String token) {
-        log.info("5 JWT received from WebClient header");
+        log.info("4 /mockApi endpoint called with JWT: {}", token);
         return Mono.just(token);
     }
 

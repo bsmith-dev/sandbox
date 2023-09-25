@@ -1,4 +1,4 @@
-package poc.apv22034.config;
+package poc.apv22034;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.client.ClientRequest;
 import org.springframework.web.reactive.function.client.ExchangeFilterFunction;
 import org.springframework.web.reactive.function.client.WebClient;
-import poc.apv22034.aspect.JwtStorage;
 
 @Configuration
 @AllArgsConstructor

@@ -1,4 +1,4 @@
-package poc.apv22034.aspect;
+package poc.apv22034;
 
 import org.springframework.stereotype.Component;
 
