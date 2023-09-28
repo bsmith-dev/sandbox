@@ -8,9 +8,6 @@ import reactor.core.publisher.Mono;
 
 /**
  * Controller class for handling API requests.
- *
- * @author Your Name
- * @version 1.0
  */
 @RequiredArgsConstructor
 @RestController

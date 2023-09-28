@@ -7,10 +7,6 @@ import reactor.core.publisher.Mono;
 
 /**
  * Service class responsible for executing web client calls.
- *
- * @author Your Name
- * @version 1.0
- * @since 2023-09-25
  */
 @org.springframework.stereotype.Service
 @RequiredArgsConstructor
@@ -23,7 +19,7 @@ public class Service {
     private final WebClient webClient;
 
     /**
-     * Executes a web client call and logs the received token.
+     * Executes a web client call with JWT in header and logs the received token.
      *
      * @return Mono<String> A Mono containing a success message.
      */

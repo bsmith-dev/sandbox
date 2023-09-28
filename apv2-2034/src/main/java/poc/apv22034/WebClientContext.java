@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
  *
  */
 @Component
-public class JwtStorage {
+public class WebClientContext {
 
     /**
      * Thread-local storage for JWT tokens.
