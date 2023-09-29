@@ -16,7 +16,7 @@ import org.springframework.web.server.ServerWebExchange;
 public class JwtExtractorAspect {
 
     /**
-     * JwtStorage instance for storing JWT tokens.
+     * WebClientContext instance for storing JWT tokens.
      */
     private final WebClientContext webClientContext;
 
