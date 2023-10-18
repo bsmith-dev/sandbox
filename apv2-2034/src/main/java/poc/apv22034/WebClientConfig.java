@@ -44,7 +44,7 @@ public class WebClientConfig {
      * @return ExchangeFilterFunction to add the authorization header
      */
     private ExchangeFilterFunction addAuthorizationHeader() {
-        log.info("Adding reference to JWT token in WebClient header");
+        log.info("0 Adding reference to JWT token in WebClient header");
         return (clientRequest, next) -> {
            final String jwtToken = webClientContext.getJwtToken();
             if (jwtToken != null) {

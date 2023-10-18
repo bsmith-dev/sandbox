@@ -32,6 +32,12 @@ public class Controller {
         return service.webClientExecutor();
     }
 
+    @GetMapping("/{systemId}")
+    public Mono<String> callWebClientWithPathVariable(ServerWebExchange exchange, @PathVariable String systemId) {
+        log.info("2 /poc endpoint called for {}", systemId);
+        return service.webClientExecutor();
+    }
+
     /**
      * Validates JWT token from the Authorization header.
      *

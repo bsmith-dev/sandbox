@@ -28,11 +28,10 @@ public class JwtExtractorAspect {
      * Executes before the callWebClient method in the Controller class.
      * Extracts the JWT token from the Authorization header and stores it.
      *
-     * @param joinPoint JoinPoint instance.
      * @param exchange  ServerWebExchange instance.
      */
-    @Before("execution(* poc.apv22034.Controller.callWebClient(..)) && args(exchange,..)")
-    public void beforeControllerMethod(JoinPoint joinPoint, ServerWebExchange exchange) {
+    @Before("execution(* poc.apv22034.Controller.*(..)) && args(exchange,..)")
+    public void beforeControllerMethod(ServerWebExchange exchange) {
         final String token = exchange.getRequest().getHeaders().getFirst("Authorization");
         webClientContext.setJwtToken(token);
         log.info("1 Token extracted from header and stored {}", token);

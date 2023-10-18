@@ -25,9 +25,6 @@ class JwtExtractorAspectTest {
     @Mock
     private WebClientContext webClientContext;
 
-    @Mock
-    private JoinPoint joinPoint;
-
     @InjectMocks
     private JwtExtractorAspect jwtExtractorAspect;
 
@@ -51,7 +48,7 @@ class JwtExtractorAspectTest {
         ServerWebExchange exchange = new DefaultServerWebExchange(request, response, sessionManager, codecConfigurer, localeContextResolver);
 
         // Act
-        jwtExtractorAspect.beforeControllerMethod(joinPoint, exchange);
+        jwtExtractorAspect.beforeControllerMethod(exchange);
 
         // Assert
         verify(webClientContext, times(1)).setJwtToken(jwtToken);
