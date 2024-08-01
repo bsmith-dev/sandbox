@@ -1,0 +1,10 @@
+spring:
+  security:
+    user:
+      name: user1
+      password: password1
+  devtools:
+    restart:
+      enabled: true
+    livereload:
+      enabled: true

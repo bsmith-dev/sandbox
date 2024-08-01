@@ -1,0 +1,16 @@
+@id = 1
+@username = user1
+@password = password1
+
+###
+GET http://localhost:8080/api/v1/users/{{id}}
+Authorization: Basic {{username}} {{password}}
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+        client.assert(response.body.id === 1, "User ID does not match");
+        client.assert(response.body.username === "user1", "Username does not match");
+        client.assert(response.body.password === "password1", "Password does not match");
+    });
+%}
