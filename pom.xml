@@ -15,7 +15,6 @@
     <name>sandbox</name>
     <description>POC Sandbox</description>
     <modules>
-        <module>apv2-2034</module>
         <module>aspects</module>
         <module>api-gateway</module>
     </modules>
