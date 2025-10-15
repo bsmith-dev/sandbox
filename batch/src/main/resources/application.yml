@@ -1,0 +1,35 @@
+# Source DB (MariaDB)
+spring:
+  datasource:
+    source:
+      url: jdbc:mysql://localhost:3306/insuredportal
+      username: root
+      password: toor
+      driver-class-name: com.mysql.cj.jdbc.Driver
+    target:
+      url: jdbc:mysql://localhost:3305/payments
+      username: root
+      password: toor
+      driver-class-name: com.mysql.cj.jdbc.Driver
+  batch:
+    job:
+      enabled: false
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        format_sql: true
+    show-sql: true
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE
+debug: true
+
