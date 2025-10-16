@@ -50,7 +50,7 @@ public class BatchConfig {
     }
 
     @Bean
-    public Step etlStep(JobRepository jobRepository, @Qualifier("batchTransactionManager") PlatformTransactionManager transactionManager) {
+    public Step etlStep(JobRepository jobRepository, PlatformTransactionManager transactionManager) {
         return new StepBuilder("ETL-Payment-Step", jobRepository)
                 .<SourcePayment, TargetPayment>chunk(100, transactionManager)
                 .reader(reader())

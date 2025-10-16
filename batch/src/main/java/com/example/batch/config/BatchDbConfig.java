@@ -9,8 +9,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.sql.DataSource;
 
@@ -18,42 +18,32 @@ import javax.sql.DataSource;
 @EnableBatchProcessing
 public class BatchDbConfig {
 
-    @Bean(name = "dataSource")
+    @Bean(name = "batchProperties")
+    @ConfigurationProperties(prefix = "batch.datasource")
     @Primary
-    public DataSource mainDataSource(@Qualifier("batchDataSource") DataSource batchDataSource) {
-        return batchDataSource;
-    }
-
-    @Primary
-    @Bean(name = "batchDataSourceProperties")
-    @ConfigurationProperties(prefix = "spring.datasource.batch")
     public DataSourceProperties batchDataSourceProperties() {
         return new DataSourceProperties();
     }
 
-    @Bean(name = "batchDataSource")
-    public DataSource batchDataSource(DataSourceProperties properties) {
+    @Bean(name = "dataSource")
+    @Primary
+    public DataSource batchDatasource(@Qualifier("batchProperties") DataSourceProperties properties) {
         return properties.initializeDataSourceBuilder().build();
     }
 
-    @Primary
-    @Bean(name = "batchTransactionManager")
-    public PlatformTransactionManager batchTransactionManager(
-            DataSource batchDataSource) {
-        return new DataSourceTransactionManager(batchDataSource);
-    }
-
     @Bean(name = "transactionManager")
-    public PlatformTransactionManager transactionManager(@Qualifier("batchTransactionManager") PlatformTransactionManager batchTransactionManager) {
-        return batchTransactionManager;
+    @Primary
+    public PlatformTransactionManager batchTransactionManager(@Qualifier("dataSource") DataSource batchDatasource) {
+        return new DataSourceTransactionManager(batchDatasource);
     }
 
-    @Bean
+    @Bean(name = "batchJobRepository")
+    @Primary
     public JobRepository jobRepository(
-            DataSource batchDataSource,
-            PlatformTransactionManager batchTransactionManager) throws Exception {
+            @Qualifier("dataSource") DataSource batchDatasource,
+            @Qualifier("transactionManager") PlatformTransactionManager batchTransactionManager) throws Exception {
         JobRepositoryFactoryBean factory = new JobRepositoryFactoryBean();
-        factory.setDataSource(batchDataSource);
+        factory.setDataSource(batchDatasource);
         factory.setTransactionManager(batchTransactionManager);
         factory.setIsolationLevelForCreate("ISOLATION_READ_COMMITTED");
         factory.afterPropertiesSet();

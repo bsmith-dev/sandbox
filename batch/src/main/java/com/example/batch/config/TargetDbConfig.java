@@ -24,7 +24,7 @@ import javax.sql.DataSource;
 public class TargetDbConfig {
 
     @Bean(name = "targetProperties")
-    @ConfigurationProperties(prefix = "spring.datasource.target")
+    @ConfigurationProperties(prefix = "target.datasource")
     public DataSourceProperties dataSourceProperties() {
         return new DataSourceProperties();
     }

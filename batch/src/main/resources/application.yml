@@ -1,41 +1,40 @@
-# Source DB (MariaDB)
 spring:
-  datasource:
-    batch:
-      url: jdbc:mysql://localhost:3305/batch
-      username: root
-      password: toor
-      driver-class-name: com.mysql.cj.jdbc.Driver
-    source:
-      url: jdbc:mysql://localhost:3306/insuredportal
-      username: root
-      password: toor
-      driver-class-name: com.mysql.cj.jdbc.Driver
-    target:
-      url: jdbc:mysql://localhost:3305/payments
-      username: root
-      password: toor
-      driver-class-name: com.mysql.cj.jdbc.Driver
   batch:
-    job:
-      enabled: false
     jdbc:
-      initialize-schema: always
+      initialize-schema: always  # Creates BATCH_* tables in batch datasource
+    job:
+      enabled: false             # Disable auto-run; launch jobs manually or via scheduler
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: update  # Use 'update' for dev, 'validate' for prod
+    generate-ddl: true
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
         format_sql: true
     show-sql: true
-logging:
-  level:
-    org:
-      hibernate:
-        SQL: DEBUG
-        type:
-          descriptor:
-            sql:
-              BasicBinder: TRACE
+
+# Batch metadata datasource
+batch:
+  datasource:
+    url: jdbc:mysql://localhost:3305/batch_metadata
+    username: root
+    password: toor
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+# Source datasource (read from)
+source:
+  datasource:
+    url: jdbc:mysql://localhost:3306/insuredportal
+    username: root
+    password: toor
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+# Target datasource (write to)
+target:
+  datasource:
+    url: jdbc:mysql://localhost:3305/payments
+    username: root
+    password: toor
+    driver-class-name: com.mysql.cj.jdbc.Driver
 debug: true

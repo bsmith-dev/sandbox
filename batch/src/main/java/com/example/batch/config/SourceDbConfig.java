@@ -27,12 +27,13 @@ public class SourceDbConfig {
 
 
     @Bean(name = "sourceProperties")
-    @ConfigurationProperties(prefix = "spring.datasource.source")
+    @ConfigurationProperties(prefix = "source.datasource")
     public DataSourceProperties dataSourceProperties() {
         return new DataSourceProperties();
     }
 
     @Bean(name = "sourceDatasource")
+    @ConfigurationProperties(prefix = "source.datasource")
     public DataSource datasource(@Qualifier("sourceProperties") DataSourceProperties properties) {
         return properties.initializeDataSourceBuilder().build();
     }
@@ -48,8 +49,10 @@ public class SourceDbConfig {
     }
 
     @Bean(name = "sourceTransactionManager")
+    @ConfigurationProperties("spring.jpa")
     public PlatformTransactionManager transactionManager(
-            @Qualifier("sourceEntityManagerFactory") EntityManagerFactory entityManagerFactory) {
+            @Qualifier("sourceEntityManagerFactory")
+            EntityManagerFactory entityManagerFactory) {
         return new JpaTransactionManager(entityManagerFactory);
     }
 }
