@@ -13,6 +13,7 @@ import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.data.RepositoryItemReader;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.Sort;
@@ -49,7 +50,7 @@ public class BatchConfig {
     }
 
     @Bean
-    public Step etlStep(JobRepository jobRepository, PlatformTransactionManager transactionManager) {
+    public Step etlStep(JobRepository jobRepository, @Qualifier("batchTransactionManager") PlatformTransactionManager transactionManager) {
         return new StepBuilder("ETL-Payment-Step", jobRepository)
                 .<SourcePayment, TargetPayment>chunk(100, transactionManager)
                 .reader(reader())

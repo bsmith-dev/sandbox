@@ -24,13 +24,12 @@ import javax.sql.DataSource;
 public class TargetDbConfig {
 
     @Bean(name = "targetProperties")
-    @ConfigurationProperties("spring.datasource.target")
+    @ConfigurationProperties(prefix = "spring.datasource.target")
     public DataSourceProperties dataSourceProperties() {
         return new DataSourceProperties();
     }
 
     @Bean(name = "targetDatasource")
-    @ConfigurationProperties(prefix = "spring.datasource.target")
     public DataSource datasource(@Qualifier("targetProperties") DataSourceProperties properties) {
         return properties.initializeDataSourceBuilder().build();
     }
@@ -45,10 +44,8 @@ public class TargetDbConfig {
     }
 
     @Bean(name = "targetTransactionManager")
-    @ConfigurationProperties("spring.jpa")
     public PlatformTransactionManager transactionManager(
             @Qualifier("targetEntityManagerFactory") EntityManagerFactory entityManagerFactory) {
         return new JpaTransactionManager(entityManagerFactory);
     }
 }
-

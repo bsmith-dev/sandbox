@@ -25,21 +25,19 @@ import javax.sql.DataSource;
         basePackages = {"com.example.batch.repository.source"})
 public class SourceDbConfig {
 
-    @Primary
+
     @Bean(name = "sourceProperties")
-    @ConfigurationProperties("spring.datasource.source")
+    @ConfigurationProperties(prefix = "spring.datasource.source")
     public DataSourceProperties dataSourceProperties() {
         return new DataSourceProperties();
     }
 
-    @Primary
     @Bean(name = "sourceDatasource")
-    @ConfigurationProperties(prefix = "spring.datasource.source")
     public DataSource datasource(@Qualifier("sourceProperties") DataSourceProperties properties) {
         return properties.initializeDataSourceBuilder().build();
     }
 
-    @Primary
+
     @Bean(name = "sourceEntityManagerFactory")
     public LocalContainerEntityManagerFactoryBean entityManagerFactoryBean
             (EntityManagerFactoryBuilder builder,
@@ -49,9 +47,7 @@ public class SourceDbConfig {
                 .persistenceUnit("source").build();
     }
 
-    @Primary
     @Bean(name = "sourceTransactionManager")
-    @ConfigurationProperties("spring.jpa")
     public PlatformTransactionManager transactionManager(
             @Qualifier("sourceEntityManagerFactory") EntityManagerFactory entityManagerFactory) {
         return new JpaTransactionManager(entityManagerFactory);

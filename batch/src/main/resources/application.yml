@@ -1,6 +1,11 @@
 # Source DB (MariaDB)
 spring:
   datasource:
+    batch:
+      url: jdbc:mysql://localhost:3305/batch
+      username: root
+      password: toor
+      driver-class-name: com.mysql.cj.jdbc.Driver
     source:
       url: jdbc:mysql://localhost:3306/insuredportal
       username: root
@@ -14,6 +19,8 @@ spring:
   batch:
     job:
       enabled: false
+    jdbc:
+      initialize-schema: always
   jpa:
     hibernate:
       ddl-auto: update
@@ -32,4 +39,3 @@ logging:
             sql:
               BasicBinder: TRACE
 debug: true
-
